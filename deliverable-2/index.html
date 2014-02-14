@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>fancyBox Modified Source Test</title>
+  
+  <link rel="stylesheet" href="src/jquery.fancybox.css" type="text/css" media="screen" />
+</head>
+<body>
+  
+  <h2>fancyBox Modified Source Test</h2>
+<a class="fancy" href="img/cat.jpeg"><img src="img/cat.jpeg"/></a>
+
+
+
+
+
+
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="lib/jquery.min.js"><\/script>')</script>
+
+  <script type="text/javascript" src="src/exposed-fancybox.js"></script>
+
+  <script>
+  $(function() {
+console.debug(fbox);
+    $('.fancy').fancybox();
+
+    $.fancybox( '<div><h1>Lorem Lipsum</h1><p>Lorem lipsum</p></div>', {
+      title : 'Custom Title'
+    });
+
+  });
+  </script>
+
+</body>
+</html>
