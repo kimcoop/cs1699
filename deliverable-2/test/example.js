@@ -21,6 +21,19 @@ test( "event cooresponding to object function returns false", function() {
 // when passed an event that does not coorespond to a
 // passed object's function that returns false, trigger()
 // should call $(document).trigger()
+test( "event is triggered on $(document)", function() {
+
+  var test = false, mock = {}, fake = Dexter.fake(D, 'trigger', function() {
+    test = true;
+  });
+
+  F.trigger("foo1", mock);
+  strictEqual(test, true, "has been set to true true");
+
+  fake.restore();
+});
+/*
+// asynchronous variation depends on jQuery.one()
 asyncTest( "event is triggered on $(document)", function() {
   expect(1);
 
@@ -37,39 +50,26 @@ asyncTest( "event is triggered on $(document)", function() {
     start();
   }, 1000);
 });
-
-// @todo test obj.helpers?
-/*
-(function() {
-  
-  //console.debug(mocked);
-
-  console.debug(F.trigger.call(mocked, {
-    event: "foo",
-    o: mocked.mock,
-    F: mocked.F
-  }));
-})();
-
-test( "helper functions are called if they exist", function() {
- 
-  var mocked = {
-    mock: {
-      helpers: {
-        foo: 'bar'
-      }
-    },
-    F: {
-      'hi': true
-    }
-  };
-
-  console.debug(F.trigger.call(mocked, "foo", mocked.mock));
-  //console.debug(F.trigger("foo", mock));
-
-  ok( F.trigger("foo", mock), "returns true" );
-});
 */
+
+// when passed an event that cooresponds to a function in the
+// passed obj.helpers object, the helper object's function
+// should be called
+test( "helper functions are called if they exist", function() {
+
+  var test = false, mock = {
+    helpers: {
+      overlay: {}
+    }
+  }, fake = Dexter.fake(F.helpers.overlay, 'create', function() {
+    test = true;
+  });
+
+  F.trigger("create", mock);
+  strictEqual( test, true, "has been set to true" );
+
+  fake.restore();
+});
 
 
 module( "isImage" );
