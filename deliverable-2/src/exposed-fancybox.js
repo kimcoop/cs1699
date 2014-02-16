@@ -10,7 +10,7 @@
  *
  */
 
-var fbox = (function (window, document, $, undefined) {
+//var fbox = (function (window, document, $, undefined) {
 	"use strict";
 
 	var H = $("html"),
@@ -2016,7 +2016,7 @@ var fbox = (function (window, document, $, undefined) {
 
 		$("<style type='text/css'>.fancybox-margin{margin-right:" + (w2 - w1) + "px;}</style>").appendTo("head");
 	});
-
+/*
 	return {
 		version : F.version,
 		defaults : F.defaults,
@@ -2067,5 +2067,5 @@ var fbox = (function (window, document, $, undefined) {
 		_afterZoomIn : F._afterZoomIn,
 		_afterZoomOut : F._afterZoomOut
 	}
-
-}(window, document, jQuery));
+*/
+//}(window, document, jQuery));
