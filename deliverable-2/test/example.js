@@ -9,7 +9,7 @@ test( "null object", function() {
 // when passed an event that cooresponds to the passed
 // object's function that returns false, trigger()
 // should immediately return false
-test( "event cooresponding to object function returns false", function() {
+test( "event corresponding to object function returns false", function() {
   var mock = {
     foo: function() {
       return false;
