@@ -1,3 +1,96 @@
+// @todo module( "hideLoading" );
+
+
+module( "showLoading" );
+
+// before appending the loading element to the DOM and binding
+// it to the appropriate events, showLoading() should make
+// a call to hideLoading()
+test( "call hideLoading()", function() {
+  var spy = Dexter.spy( F, 'hideLoading');
+  F.showLoading();
+  equal( spy.called, 1, 'hideLoading() called once');
+  spy.restore();
+});
+
+// after calling showLoading(), an element with an id of
+// #fancybox-loading should be appended to the DOM
+test( "DOM element creation", function() {
+  F.showLoading();
+  var el = document.getElementById("fancybox-loading");
+  ok( el, "loading element exists" );
+  el.parentElement.removeChild(el);
+});
+
+// after a call to showLoading, the #fancybox-loading element
+// should call F.cancel when the escape key is pressed
+test( "press escape key", function() {
+  F.showLoading();
+  var $el = $('#fancybox-loading'),
+  spyCancel = Dexter.spy( F, 'cancel' );
+
+  var e = $.Event('keydown.loading');
+  e.which = 27;
+  $el.trigger(e);
+  
+  equal( spyCancel.called, 1, "has called cancel()");
+
+  F.hideLoading(); // cleanup; function already tested
+  spyCancel.restore();
+});
+
+// after a call to showLoading, the #fancybox-loading element
+// should not be affected when not pressing the escape key
+test( "press key other than escape", function() {
+  F.showLoading();
+  var $el = $('#fancybox-loading'),
+  spyCancel = Dexter.spy( F, 'cancel' );
+
+  var e = $.Event('keydown.loading');
+  e.which = 28;
+  $el.trigger(e);
+  
+  equal( spyCancel.called, 0, "has not called cancel()");
+
+  F.hideLoading(); // cleanup; function already tested
+  spyCancel.restore();
+});
+
+
+module( "getViewport" );
+
+// assuming that F.current is not locked, getViewport()
+// should return the values that describe the user's
+// viewport; these values are defined by jQuery's scrollLeft(),
+// scrollTop(), width() and height() methods respectively
+test( "user's viewport", function() {
+  var fakeScrollLeft = Dexter.fake(W, 'scrollLeft', function() {
+    return 5;
+  }),
+  fakeScrollTop = Dexter.fake(W, 'scrollTop', function() {
+    return 10;
+  }),
+  fakeWidth = Dexter.fake(W, 'width', function() {
+    return 200;
+  }),
+  fakeHeight = Dexter.fake(W, 'height', function() {
+    return 100;
+  });
+
+  deepEqual( F.getViewport(), {
+    x: 5,
+    y: 10,
+    w: 200,
+    h: 100
+  }, "returns correct viewport");
+  
+  fakeScrollLeft.restore();
+  fakeScrollTop.restore();
+  fakeWidth.restore();
+  fakeHeight.restore();
+});
+
+
 module( "trigger" );
 
 // when passed an object that does not exist, trigger()
@@ -22,7 +115,6 @@ test( "event cooresponding to object function returns false", function() {
 // passed object's function that returns false, trigger()
 // should call $(document).trigger()
 test( "event is triggered on $(document)", function() {
-
   var test = false, mock = {}, fake = Dexter.fake(D, 'trigger', function() {
     test = true;
   });
@@ -56,7 +148,6 @@ asyncTest( "event is triggered on $(document)", function() {
 // passed obj.helpers object, the helper object's function
 // should be called
 test( "helper functions are called if they exist", function() {
-
   var test = false, mock = {
     helpers: {
       overlay: {}
