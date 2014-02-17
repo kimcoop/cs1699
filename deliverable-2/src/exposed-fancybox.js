@@ -516,9 +516,8 @@
 				index = index % current.group.length;
 			}
 
-			if (current.group[ index ] !== undefined) { // @ISSUE
+			if (current.group[ index ] !== undefined) {
 				F.cancel();
-
 				F._start(index);
 			}
 		},
