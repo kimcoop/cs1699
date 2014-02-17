@@ -54,19 +54,61 @@ test( "jumpto accepts index, direction, and router as parameters", function() {
 });
 
 test( "jumpto returns if current is null", function() {
+  var directionParam = 'right',
+    jumptoSpy = this.spy(F, 'jumpto'),
+    cancelSpy = this.spy(F, 'cancel'),
+    startSpy = this.spy(F, '_start'),
+    bigIndex = 10000;
+
+  $.extend(F, { current: null });
+
+  F.jumpto(directionParam);
+
+  ok(jumptoSpy.firstCall, "F.jumpto was called first");
+  ok(jumptoSpy.calledOnce, "F.jumpto was called once");
+  equal(jumptoSpy.returnValues[0], undefined, "F.jumpto returned no values");
+  ok(jumptoSpy.lastCall, "F.jumpto was called last");
+  equal(cancelSpy.callCount, 0, "F.cancel was not called");
+  equal(startSpy.callCount, 0, "F._start() was not called");
+
+  expect(6);
+  delete F.current;
 });
 
-// **For the following two tests**
-//
-// If no direction param is present,
-// jumpto default to current.direction.next or current.direction.prev, based on
-// how the current.index value compares to the index value passed in.
-test( "jumpto defaults direction to next when index param >= current.index", function() {
-  // @TODO
+test( "jumpto does not call F.cancel if current is null", function() {
+  var directionParam = 'right',
+    jumptoSpy = this.spy(F, 'jumpto'),
+    cancelSpy = this.spy(F, 'cancel'),
+    bigIndex = 10000;
+
+  $.extend(F, { current: null });
+
+  F.jumpto(directionParam);
+
+  ok(jumptoSpy.firstCall, "F.jumpto was called first");
+  equal(cancelSpy.callCount, 0, "F.cancel was not called");
+  ok(jumptoSpy.lastCall, "F.jumpto was called last");
+
+  expect(3);
+  delete F.current;
 });
 
-test( "jumpto defaults direction to prev when index param < current.index", function() {
-  // @TODO
+test( "jumpto does not call F._start if current is null", function() {
+  var directionParam = 'right',
+    jumptoSpy = this.spy(F, 'jumpto'),
+    startSpy = this.spy(F, '_start'),
+    bigIndex = 10000;
+
+  $.extend(F, { current: null });
+
+  F.jumpto(directionParam);
+
+  ok(jumptoSpy.firstCall, "F.jumpto was called first");
+  equal(startSpy.callCount, 0, "F._start was not called");
+  ok(jumptoSpy.lastCall, "F.jumpto was called last");
+
+  expect(3);
+  delete F.current;
 });
 
 test("if current.group at position index is not undefined, F.cancel() and F._start() are called", function() {
