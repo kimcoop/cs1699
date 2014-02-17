@@ -1,4 +1,14 @@
-// @todo module( "hideLoading" );
+module( "hideLoading" );
+
+// 
+test( "remove loading element", function() {
+  var body = document.getElementsByTagName('body')[0];
+  body.innerHTML += '<div id="fancybox-loading"></div>';
+
+  F.hideLoading();
+
+  strictEqual(document.getElementById('fancybox-loading'), null, 'asdf');
+});
 
 
 module( "showLoading" );
