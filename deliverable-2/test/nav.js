@@ -15,6 +15,7 @@ module( "navigation", {
 
   },
   teardown: function() {
+    F.close();
     $('.fancy').remove();
   }
 });
