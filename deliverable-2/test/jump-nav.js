@@ -26,6 +26,9 @@ module( "jump_navigation", {
 *
 */
 
+
+// jumpto allows the user to pass in index, direction, and router, with
+// direction and router being optional parameters.
 test( "jumpto accepts index, direction, and router as parameters", function() {
 
   var directionParam = 'right',
@@ -53,6 +56,11 @@ test( "jumpto accepts index, direction, and router as parameters", function() {
 
 });
 
+
+// Jumpto relies on the current fancybox object (ie. F.current).
+// If it isn't present, the function should exit, ie. it should
+// be the first and last function called. It should also
+// not return any values.
 test( "jumpto returns if current is null", function() {
   var directionParam = 'right',
     jumptoSpy = this.spy(F, 'jumpto'),
@@ -75,6 +83,10 @@ test( "jumpto returns if current is null", function() {
   delete F.current;
 });
 
+// Jumpto relies on the current fancybox object (ie. F.current).
+// If it isn't present, the function should exit, ie. it should
+// be the first and last function called, and it should not call
+// the cancel function referenced within.
 test( "jumpto does not call F.cancel if current is null", function() {
   var directionParam = 'right',
     jumptoSpy = this.spy(F, 'jumpto'),
@@ -93,6 +105,10 @@ test( "jumpto does not call F.cancel if current is null", function() {
   delete F.current;
 });
 
+// Jumpto relies on the current fancybox object (ie. F.current).
+// If it isn't present, the function should exit, ie. it should
+// be the first and last function called, and it should not call
+// the _start function referenced within.
 test( "jumpto does not call F._start if current is null", function() {
   var directionParam = 'right',
     jumptoSpy = this.spy(F, 'jumpto'),
@@ -111,6 +127,9 @@ test( "jumpto does not call F._start if current is null", function() {
   delete F.current;
 });
 
+// Jumpto relies on the current fancybox object (ie. F.current).
+// If it is present, the function should call the functions referenced
+// within, ie. cancel and _start.
 test("if current.group at position index is not undefined, F.cancel() and F._start() are called", function() {
   var directionParam = 'right',
     cancelSpy = this.spy(F, 'cancel'),
@@ -135,7 +154,7 @@ test("if current.group at position index is not undefined, F.cancel() and F._sta
   delete F.current;
 });
 
-// ensure order of functons is maintained
+// Ensure order of functions called within jumpto is maintained.
 test("if current.group at position index is not undefined, F.cancel() is called, and then F._start() is called", function() {
   var directionParam = 'right',
     cancelSpy = this.spy(F, 'cancel'),
@@ -161,6 +180,10 @@ test("if current.group at position index is not undefined, F.cancel() is called,
   delete F.current;
 });
 
+
+// Jumpto needs to be able to advance to the proper gallery element.
+// This element should exist within the current fancybox element's group
+// array at its respective index. If it's not, the function should exit.
 test("if current.group at position index is undefined, F.cancel() and F._start() are not called", function() {
 
   var directionParam = 'right',
