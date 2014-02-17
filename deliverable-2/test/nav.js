@@ -34,19 +34,33 @@ test( "next accepts direction as a parameter", function() {
 // @TODO
 test( "next sends direction to jumpto function", function() {
 
-  var directionParam = 'right', 
-    nextSpy = this.spy(F, 'next'),
+  var directionParam = 'right',
     jumptoSpy = this.spy(F, 'jumpto');
-  console.debug(F);
-  // var F = {
-  //   next: origF.next,
-  //   jumpTo: origF.jumpto,
-  //   current: { index: 0, direction: { next: 'fake_left', prev: 'fake_right' } }
-  // }
+
+  var currentStub = this.stub(F, 'current', function() {
+    return {
+      index: 1,
+      direction: { next: 'left', prev: 'right' },
+      loop: true,
+      group: [
+        { href: "img/cat.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-2.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-3.jpeg", isDom: true, title: "", type: "image" }
+      ]
+    };
+  });
 
   F.next(directionParam);
-  ok(nextSpy.called);
-  ok(jumptoSpy.called);
+  ok(jumptoSpy.called, "jumpto was called");
+
+  // var directionParam = 'right', 
+  //   nextSpy = this.spy(F, 'next'),
+  //   jumptoSpy = this.spy(F, 'jumpto'),
+  
+  // // console.debug(F.current);
+  // F.next(directionParam);
+  // ok(nextSpy.called);
+  // ok(jumptoSpy.called);
   // equals(jumptoSpy.getCall(0).args[1], directionParam);
 
   expect(1);
@@ -58,7 +72,7 @@ test( "next defaults to current.direction.next if a non-string argument is passe
 
   F.next(badParam);
   ok(nextSpy.called);
-  ok(nextSpy.calledWith(badParam), 'F.next called with directionParam');
+  ok(nextSpy.calledWith(badParam), 'F.next called with badParam');
 
   expect(2);
 });
@@ -68,16 +82,6 @@ test( "next passes direction to jumpTo", function() {
   // if called correctly, F.next should call F.jumpto
   // with the argument passed into F.next as its second param
 
-  var direction = 'right',
-    jumptoSpy = Dexter.spy(F, 'jumpto', function(args) {
-      equal(args[1], directionParam, 'args[1] === ' + directionParam);
-    });
-
-  F.next();
-
-  equal(jumptoSpy.called, 1, 'F.jumpto called once');
-  jumptoSpy.restore();
-  expect(2);
 });
 
 /*&
