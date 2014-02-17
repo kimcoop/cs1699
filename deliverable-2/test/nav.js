@@ -19,7 +19,38 @@ module( "navigation", {
   }
 });
 
-// next should advance current gallery item to its next right sibling
+test( "next uses parameter to set direction if it is passed in as a string", function() {
+
+  var directionParam = 'right', 
+    nextSpy = this.spy(F, 'next');
+    // nextSpy = Dexter.spy(F, 'next', function(arg) {
+    //   equal(arg, directionParam, 'arg === ' + directionParam);
+    // });
+
+  F.next(directionParam);
+  ok(nextSpy.calledWith(directionParam), 'F.next called with directionParam');
+
+  nextSpy.restore();
+  expect(1);
+});
+
+// @TODO - why does this fail?
+test( "next passes direction to jumpTo", function() {
+  // if called correctly, F.next should call F.jumpto
+  // with the argument passed into F.next as its second param
+
+  var direction = 'right',
+    jumptoSpy = Dexter.spy(F, 'jumpto', function(args) {
+      equal(args[1], directionParam, 'args[1] === ' + directionParam);
+    });
+
+  F.next();
+
+  equal(jumptoSpy.called, 1, 'F.jumpto called once');
+  jumptoSpy.restore();
+  expect(2);
+});
+
 /*&
 next: function ( direction ) {
       var current = F.current;
@@ -32,45 +63,14 @@ next: function ( direction ) {
         F.jumpto(current.index + 1, direction, 'next');
       }
     },*/
-test( "next uses parameter to set direction if it is passed in as a string", function() {
-  // var fake = Dexter.fake(window, 'F', function() {
-  //   return { F: { index: 0, direction: { next: 'fake_left', prev: 'fake_right' } } };
-  // });
 
-  var directionParam = 'right';
-
-  var nextSpy = Dexter.spy(F, 'next', function(arg) {
-    equal(arg, directionParam, 'arg === ' + directionParam);
+test( "next defaults to current.direction.next if no argument is passed in as direction", function() {
+  var fake = Dexter.fake(window, 'F', function() {
+    return { current: { index: 0, direction: { next: 'fake_left', prev: 'fake_right' } } };
   });
 
-  F.next(directionParam);
-  equal(nextSpy.called, 1, 'F.next called once');
 
-  nextSpy.restore();
-  expect(2);
-});
 
-// test( "next passes direction to jumpTo", function() {
-//   // // if called correctly, F.next should call F.jumpto
-//   // // with the argument passed into F.next as its second param
-//   var jumptoSpy = Dexter.spy(F, 'jumpto', function(args) {
-//     console.debug(args);
-//     equal(args[1], directionParam, 'args[1] === ' + directionParam);
-//   });
-
-//   F.jumpto('next');
-
-//   equal(jumptoSpy.called, 1, 'F.jumpto called once');
-//   jumptoSpy.restore();
-//   expect(2);
-// });
-
-test( "next defaults to current.direction.next if no arguments are passed in", function() {
-  var fake = Dexter.fake(F, 'current', function() {
-    return 'galleryItem';
-  }), returnedValue;
-  
-  returnedValue = next;
 
 });
 
