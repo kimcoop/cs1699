@@ -19,19 +19,48 @@ module( "navigation", {
   }
 });
 
-test( "next uses parameter to set direction if it is passed in as a string", function() {
+test( "next accepts direction as a parameter", function() {
 
   var directionParam = 'right', 
     nextSpy = this.spy(F, 'next');
-    // nextSpy = Dexter.spy(F, 'next', function(arg) {
-    //   equal(arg, directionParam, 'arg === ' + directionParam);
-    // });
 
   F.next(directionParam);
+  ok(nextSpy.called);
   ok(nextSpy.calledWith(directionParam), 'F.next called with directionParam');
 
-  nextSpy.restore();
+  expect(2);
+});
+
+// @TODO
+test( "next sends direction to jumpto function", function() {
+
+  var directionParam = 'right', 
+    nextSpy = this.spy(F, 'next'),
+    jumptoSpy = this.spy(F, 'jumpto');
+  console.debug(F);
+  // var F = {
+  //   next: origF.next,
+  //   jumpTo: origF.jumpto,
+  //   current: { index: 0, direction: { next: 'fake_left', prev: 'fake_right' } }
+  // }
+
+  F.next(directionParam);
+  ok(nextSpy.called);
+  ok(jumptoSpy.called);
+  // equals(jumptoSpy.getCall(0).args[1], directionParam);
+
   expect(1);
+});
+
+test( "next defaults to current.direction.next if a non-string argument is passed in", function() {
+  var badParam = 44444, 
+    nextSpy = this.spy(F, 'next');
+
+  F.next(badParam);
+  ok(nextSpy.called);
+  ok(nextSpy.calledWith(badParam), 'F.next called with directionParam');
+
+  expect(2);
 });
 
 // @TODO - why does this fail?
@@ -65,35 +94,10 @@ next: function ( direction ) {
     },*/
 
 test( "next defaults to current.direction.next if no argument is passed in as direction", function() {
-  var fake = Dexter.fake(window, 'F', function() {
-    return { current: { index: 0, direction: { next: 'fake_left', prev: 'fake_right' } } };
-  });
-
-
-
 
 });
 
-test( "next defaults to current.direction.next if a non-string argument is passed in", function() {
-  var fake = Dexter.fake(F, 'current', function() {
-    return 'galleryItem';
-  }), returnedValue;
-  
-  returnedValue = next;
-
-});
 
 test( "next jumps current gallery item", function() {
-  var fake = Dexter.fake(F, 'current', function() {
-    return 'galleryItem';
-  }), returnedValue;
   
-  returnedValue = next;
-
-});
-
-// when passed a path to a non-ShockWave Flash file,
-// isSWF() should return false
-test( "non-swf file", function() {
-  ok( !F.isSWF("path/to/another.swff"), "returns false" );
 });
