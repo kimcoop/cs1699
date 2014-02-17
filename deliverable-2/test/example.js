@@ -7,10 +7,9 @@ module( "showLoading" );
 // it to the appropriate events, showLoading() should make
 // a call to hideLoading()
 test( "call hideLoading()", function() {
-  var spy = Dexter.spy( F, 'hideLoading');
+  var spy = this.spy( F, 'hideLoading');
   F.showLoading();
   equal( spy.called, 1, 'hideLoading() called once');
-  spy.restore();
 });
 
 // after calling showLoading(), an element with an id of
@@ -27,7 +26,7 @@ test( "DOM element creation", function() {
 test( "press escape key", function() {
   F.showLoading();
   var $el = $('#fancybox-loading'),
-  spyCancel = Dexter.spy( F, 'cancel' );
+  spyCancel = this.spy( F, 'cancel' );
 
   var e = $.Event('keydown.loading');
   e.which = 27;
@@ -36,7 +35,6 @@ test( "press escape key", function() {
   equal( spyCancel.called, 1, "has called cancel()");
 
   F.hideLoading(); // cleanup; function already tested
-  spyCancel.restore();
 });
 
 // after a call to showLoading, the #fancybox-loading element
@@ -44,7 +42,7 @@ test( "press escape key", function() {
 test( "press key other than escape", function() {
   F.showLoading();
   var $el = $('#fancybox-loading'),
-  spyCancel = Dexter.spy( F, 'cancel' );
+  spyCancel = this.spy( F, 'cancel' );
 
   var e = $.Event('keydown.loading');
   e.which = 28;
@@ -53,7 +51,6 @@ test( "press key other than escape", function() {
   equal( spyCancel.called, 0, "has not called cancel()");
 
   F.hideLoading(); // cleanup; function already tested
-  spyCancel.restore();
 });
 
 
@@ -64,16 +61,16 @@ module( "getViewport" );
 // viewport; these values are defined by jQuery's scrollLeft(),
 // scrollTop(), width() and height() methods respectively
 test( "user's viewport", function() {
-  var fakeScrollLeft = Dexter.fake(W, 'scrollLeft', function() {
+  var fakeScrollLeft = this.stub(W, 'scrollLeft', function() {
     return 5;
   }),
-  fakeScrollTop = Dexter.fake(W, 'scrollTop', function() {
+  fakeScrollTop = this.stub(W, 'scrollTop', function() {
     return 10;
   }),
-  fakeWidth = Dexter.fake(W, 'width', function() {
+  fakeWidth = this.stub(W, 'width', function() {
     return 200;
   }),
-  fakeHeight = Dexter.fake(W, 'height', function() {
+  fakeHeight = this.stub(W, 'height', function() {
     return 100;
   });
 
@@ -83,11 +80,6 @@ test( "user's viewport", function() {
     w: 200,
     h: 100
   }, "returns correct viewport");
-  
-  fakeScrollLeft.restore();
-  fakeScrollTop.restore();
-  fakeWidth.restore();
-  fakeHeight.restore();
 });
 
 
@@ -115,14 +107,12 @@ test( "event corresponding to object function returns false", function() {
 // passed object's function that returns false, trigger()
 // should call $(document).trigger()
 test( "event is triggered on $(document)", function() {
-  var test = false, mock = {}, fake = Dexter.fake(D, 'trigger', function() {
+  var test = false, mock = {}, fake = this.stub(D, 'trigger', function() {
     test = true;
   });
 
   F.trigger("foo1", mock);
   strictEqual(test, true, "has been set to true true");
-
-  fake.restore();
 });
 /*
 // asynchronous variation depends on jQuery.one()
@@ -152,14 +142,12 @@ test( "helper functions are called if they exist", function() {
     helpers: {
       overlay: {}
     }
-  }, fake = Dexter.fake(F.helpers.overlay, 'create', function() {
+  }, fake = this.stub(F.helpers.overlay, 'create', function() {
     test = true;
   });
 
   F.trigger("create", mock);
   strictEqual( test, true, "has been set to true" );
-
-  fake.restore();
 });
 
 
