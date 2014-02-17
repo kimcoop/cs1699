@@ -1,4 +1,4 @@
-module( "navigation", {
+module( "prev_next_navigation", {
   setup: function() {
     $('body')
       .append('<a class="fancy" rel="gallery" href="img/cat.jpeg"><img src="img/cat.jpeg"></a>')
