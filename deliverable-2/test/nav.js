@@ -26,6 +26,7 @@ module( "prev_next_navigation", {
 *
 */
 
+// Ensure next function accepts relevant direction parameter.
 test( "next accepts direction as a parameter", function() {
 
   var directionParam = 'right', 
@@ -38,6 +39,7 @@ test( "next accepts direction as a parameter", function() {
   expect(2);
 });
 
+// Ensure next function sends direction as a parameter to the internal function it calls.
 test( "next sends direction to jumpto function", function() {
 
   var directionParam = 'right',
@@ -63,6 +65,7 @@ test( "next sends direction to jumpto function", function() {
 
 });
 
+// Ensure next function sets the direction value properly if an invalid argument is passed.
 test( "next uses current.direction.next as direction if a non-string argument is passed in", function() {
   var nonStringParam = 44444,
     nextSpy = this.spy(F, 'next'),
@@ -89,6 +92,7 @@ test( "next uses current.direction.next as direction if a non-string argument is
   delete F.current;
 });
 
+// Ensure next function sets the direction value properly if an invalid argument is passed.
 test( "next uses current.direction.next as direction if no argument is passed in as direction", function() {
     var nextSpy = this.spy(F, 'next'),
     jumptoSpy = this.spy(F, 'jumpto'),
@@ -119,6 +123,7 @@ test( "next uses current.direction.next as direction if no argument is passed in
 *
 */
 
+// Ensure prev function accepts relevant direction parameter.
 test( "prev accepts direction as a parameter", function() {
 
   var directionParam = 'left', 
@@ -131,6 +136,7 @@ test( "prev accepts direction as a parameter", function() {
   expect(2);
 });
 
+// Ensure prev function sends direction as a parameter to the internal function it calls.
 test( "prev sends direction to jumpto function", function() {
 
   var directionParam = 'left',
@@ -156,6 +162,7 @@ test( "prev sends direction to jumpto function", function() {
 
 });
 
+// Ensure prev function sets the direction value properly if an invalid argument is passed.
 test( "prev uses current.direction.prev as direction if a non-string argument is passed in", function() {
   var nonStringParam = 44444,
     prevSpy = this.spy(F, 'prev'),
@@ -182,6 +189,7 @@ test( "prev uses current.direction.prev as direction if a non-string argument is
   delete F.current;
 });
 
+// Ensure prev function sets the direction value properly if an invalid argument is passed.
 test( "prev uses current.direction.prev as direction if no argument is passed in as direction", function() {
     var prevSpy = this.spy(F, 'prev'),
     jumptoSpy = this.spy(F, 'jumpto'),
