@@ -1,11 +1,13 @@
 module( "hideLoading" );
 
-// 
+// after a call to hideLoading(), there should not exist an
+// element in the DOM with an id #fancybox-loading
 test( "remove loading element", function() {
   var body = document.getElementsByTagName('body')[0];
   body.innerHTML += '<div id="fancybox-loading"></div>';
 
   F.hideLoading();
+  this.clock.tick(1000);
 
   strictEqual(document.getElementById('fancybox-loading'), null, 'asdf');
 });
