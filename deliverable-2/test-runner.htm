@@ -5,10 +5,21 @@
   <title>fancyBox Unit Tests</title>
   <link rel="stylesheet" href="lib/qunit.css">
   <link rel="stylesheet" href="src/jquery.fancybox.css" type="text/css" media="screen" />
+
+  <style>
+  img {
+    margin-top: 50px;
+    height: 50px;
+  }
+  </style>
+
 </head>
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
+  <a class="fancy" rel="gallery" href="img/cat.jpeg"><img src="img/cat.jpeg"/></a>
+  <a class="fancy" rel="gallery" href="img/cat-2.jpeg"><img src="img/cat-2.jpeg"/></a>
+
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="lib/jquery.min.js"><\/script>')</script>
@@ -16,7 +27,16 @@
 
   <script type="text/javascript" src="src/exposed-fancybox.js"></script>
 
+   <script>
+  $(function() {
+
+    $('.fancy').fancybox();
+
+  });
+  </script>
+
   <script src="lib/qunit.js"></script>
   <script src="test/example.js" data-cover></script>
+  <script src="test/nav.js" data-cover></script>
 </body>
 </html>
