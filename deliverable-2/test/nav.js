@@ -31,14 +31,11 @@ test( "next accepts direction as a parameter", function() {
   expect(2);
 });
 
-// @TODO
 test( "next sends direction to jumpto function", function() {
 
   var directionParam = 'right',
-    jumptoSpy = this.spy(F, 'jumpto');
-
-  var currentStub = this.stub(F, 'current', function() {
-    return {
+    jumptoSpy = this.spy(F, 'jumpto'),
+    current = {
       index: 1,
       direction: { next: 'left', prev: 'right' },
       loop: true,
@@ -48,60 +45,63 @@ test( "next sends direction to jumpto function", function() {
         { href: "img/cat-3.jpeg", isDom: true, title: "", type: "image" }
       ]
     };
-  });
+  $.extend(F, { current: current });
 
   F.next(directionParam);
   ok(jumptoSpy.called, "jumpto was called");
-
-  // var directionParam = 'right', 
-  //   nextSpy = this.spy(F, 'next'),
-  //   jumptoSpy = this.spy(F, 'jumpto'),
-  
-  // // console.debug(F.current);
-  // F.next(directionParam);
-  // ok(nextSpy.called);
-  // ok(jumptoSpy.called);
-  // equals(jumptoSpy.getCall(0).args[1], directionParam);
-
-  expect(1);
-});
-
-test( "next defaults to current.direction.next if a non-string argument is passed in", function() {
-  var badParam = 44444, 
-    nextSpy = this.spy(F, 'next');
-
-  F.next(badParam);
-  ok(nextSpy.called);
-  ok(nextSpy.calledWith(badParam), 'F.next called with badParam');
+  equal(jumptoSpy.getCall(0).args[1], directionParam, "jumpto was called with direction parameter");
 
   expect(2);
-});
-
-// @TODO - why does this fail?
-test( "next passes direction to jumpTo", function() {
-  // if called correctly, F.next should call F.jumpto
-  // with the argument passed into F.next as its second param
+  delete F.current;
 
 });
 
-/*&
-next: function ( direction ) {
-      var current = F.current;
+test( "next uses current.direction.next as direction if a non-string argument is passed in", function() {
+  var nonStringParam = 44444,
+    nextSpy = this.spy(F, 'next'),
+    jumptoSpy = this.spy(F, 'jumpto'),
+    current = {
+      index: 1,
+      direction: { next: 'left', prev: 'right' },
+      loop: true,
+      group: [
+        { href: "img/cat.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-2.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-3.jpeg", isDom: true, title: "", type: "image" }
+      ]
+    };
+  $.extend(F, { current: current });
 
-      if (current) {
-        if (!isString(direction)) {
-          direction = current.direction.next;
-        }
+  F.next(nonStringParam);
+  ok(nextSpy.called);
+  ok(nextSpy.calledWith(nonStringParam), 'F.next called with nonStringParam');
+  ok(jumptoSpy.getCall(0).args[1] !== nonStringParam, "jumpto was not called with direction parameter");
+  equal(jumptoSpy.getCall(0).args[1], current.direction.next, "jumpto was called with current.direct.next as parameter");
 
-        F.jumpto(current.index + 1, direction, 'next');
-      }
-    },*/
-
-test( "next defaults to current.direction.next if no argument is passed in as direction", function() {
-
+  expect(4);
+  delete F.current;
 });
 
+test( "next uses current.direction.next as direction if no argument is passed in as direction", function() {
+    var nextSpy = this.spy(F, 'next'),
+    jumptoSpy = this.spy(F, 'jumpto'),
+    current = {
+      index: 1,
+      direction: { next: 'left', prev: 'right' },
+      loop: true,
+      group: [
+        { href: "img/cat.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-2.jpeg", isDom: true, title: "", type: "image" },
+        { href: "img/cat-3.jpeg", isDom: true, title: "", type: "image" }
+      ]
+    };
+  $.extend(F, { current: current });
 
-test( "next jumps current gallery item", function() {
-  
+  F.next(); // no param
+  ok(nextSpy.called);
+  equal(nextSpy.getCall(0).args.length, 0, 'F.next called with no arguments');
+  equal(jumptoSpy.getCall(0).args[1], current.direction.next, "jumpto was called with current.direct.next as parameter");
+
+  expect(3);
+  delete F.current;
 });

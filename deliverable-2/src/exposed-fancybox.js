@@ -516,11 +516,6 @@
 				index = index % current.group.length;
 			}
 
-			console.log('index', index);
-			console.debug(current.group[1]);
-			console.debug(current.group[index]);
-			console.debug(current.group);
-
 			if (current.group[ index ] !== undefined) { // @ISSUE
 				F.cancel();
 
