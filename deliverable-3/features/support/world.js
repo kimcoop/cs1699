@@ -1,10 +1,17 @@
 var zombie = require('zombie');
 var World = function World(callback) {
-  this.browser = new zombie // this.browser will be available in step definitions
+  
+  // this.browser will be available in step definitions
+  this.browser = new zombie;
 
-  this.visit = function (url, callback) {
-    this.browser.visit(url, callback);
-  };
+  /*
+  this.browser.keyPress = function(code) {
+    this.document.jQuery.event.trigger({
+      type: 'keypress',
+      which: code
+    });
+  }
+  */
 
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance
 };

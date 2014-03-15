@@ -1,24 +1,28 @@
 Feature: User can navigate through fancyBox gallery items
-  As a User
+  As a user
   I want to be able to navigate through a fancyBox image gallery
   So that I can easily view the full-size version of each image
 
-  Scenario:
-    Given a valid fancyBox gallery and an open fancyBox
-    When I press the left keyboard key
-    Then the gallery should advance to the previous item in the gallery
+  Scenario: Press left keyboard key
+    Given a valid fancyBox gallery
+    And an open fancyBox
+    When I press the left arrow keyboard key
+    Then the fancyBox should advance to the previous item in the gallery
 
-  Scenario:
-    Given a valid fancyBox gallery and an open fancyBox
-    When I press the right keyboard key
-    Then the gallery should advance to the next item in the gallery
+  Scenario: Press right keyboard key
+    Given a valid fancyBox gallery
+    And an open fancyBox
+    When I press the right arrow keyboard key
+    Then the fancyBox should advance to the next item in the gallery
 
-  Scenario:
-    Given a valid fancyBox gallery and an open fancyBox
+  Scenario: Click previous button
+    Given a valid fancyBox gallery
+    And an open fancyBox
     When I click the previous button
-    Then the gallery should advance to the previous item in the gallery
+    Then the fancyBox should advance to the previous item in the gallery
 
-  Scenario:
-    Given a valid fancyBox gallery and an open fancyBox
+  Scenario: Click next button
+    Given a valid fancyBox gallery
+    And an open fancyBox
     When I click the next button
-    Then the gallery should advance to the next item in the gallery
+    Then the fancyBox should advance to the next item in the gallery

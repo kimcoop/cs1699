@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>fancyBox Testing with BDD</title>
+    <link rel="stylesheet" href="src/jquery.fancybox.css" type="text/css" media="screen" />
+  </head>
+  <body>
+    <h1>fancyBox Testing with BDD</h1>
+    <div id="gallery">
+      <a rel="gallery" class="fancy" href="img/1_b.jpg"><img src="img/1_s.jpg" /></a>
+      <a rel="gallery" class="fancy" href="img/2_b.jpg"><img src="img/2_s.jpg" /></a>
+      <a rel="gallery" class="fancy" href="img/3_b.jpg"><img src="img/3_s.jpg" /></a>
+    </div>
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="lib/jquery.min.js"><\/script>')</script>
+    <script src="src/jquery.fancybox.pack.js"></script>
+
+    <script>
+      $('.fancy').fancybox();
+    </script>
+  </body>
+</html>

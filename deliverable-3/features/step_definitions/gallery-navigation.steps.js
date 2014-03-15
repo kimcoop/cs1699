@@ -3,38 +3,45 @@
 module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
   
-  this.Given(/^a valid fancyBox gallery and an open fancyBox$/, function (callback) {
-    // express the regexp above with the code you wish you had
+  this.Given(/valid fancyBox gallery/, function(callback) {
+    this.browser.visit('http://localhost', callback);
+  });
+
+  this.Given(/open fancyBox/, function(callback) {
+    this.browser.clickLink('#gallery .fancy:first-child', callback);
+  });
+
+
+  this.When(/^I press the (.*) keyboard key$/, function(key, callback) {
+    switch(key) {
+      case 'left arrow':
+        //this.browser.keyPress(37);
+        break;
+      case 'right arrow':
+        break;
+      default:
+        break;
+    }
     callback.pending();
   });
 
-  this.When(/^I press the left keyboard key$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
+  this.When(/^I click the (.*) button$/, function(button, callback) {
+    var sel;
+    switch(button) {
+      case 'previous':
+        sel = 'fancybox-prev';
+        break;
+      case 'next':
+        sel = 'fancybox-prev';
+        break;
+      default:
+        break;
+    }
+    this.browser.clickLink('.' + sel, callback);
   });
 
-  this.Then(/^the gallery should advance to the previous item in the gallery$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
 
-  this.When(/^I press the right keyboard key$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-
-  this.Then(/^the gallery should advance to the next item in the gallery$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-
-  this.When(/^I click the previous button$/, function (callback) {
-    // express the regexp above with the code you wish you had
-    callback.pending();
-  });
-
-  this.When(/^I click the next button$/, function (callback) {
-    // express the regexp above with the code you wish you had
+  this.Then(/^the fancyBox should advance to the (.*) item in the gallery$/, function(dir, callback) {
     callback.pending();
   });
 

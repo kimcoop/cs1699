@@ -11,7 +11,7 @@ var myHooks = function () {
 //        this.bootFullTextSearchServer();
 //        this.createSomeUsers();
 
-      console.log('Before hook');
+      //console.log('Before hook');
 
       // Don't forget to tell Cucumber when you're done:
       callback();
@@ -28,7 +28,7 @@ var myHooks = function () {
 //        this.shutdownFullTextSearchServer();
 
 
-    console.log('After hook');
+    //console.log('After hook');
 
     // Release control:
     callback();
