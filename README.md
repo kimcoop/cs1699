@@ -14,7 +14,7 @@
 
 1. Install [CucumberJS](https://github.com/cucumber/cucumber-js)
 
-###Write a Feature
+####Write a Feature
 
 1. Write features into in `features/<feature_name>.feature`
 
@@ -23,7 +23,7 @@
 3. Copy the code stub into `step_definitions/<feature_name>.steps.js`, following the pattern from `example.steps.js`
 
 
-###Extras (Optional)
+####Extras (Optional)
 
 - Install Sublime Text 2 [Cucumber Bundle](https://github.com/npverni/cucumber-sublime2-bundle)
 - Watch a [super helpful video](http://blog.codeship.io/2013/04/30/bdd-with-cucumber.html) on BDD with Cucumber/Rails
