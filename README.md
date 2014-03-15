@@ -1,4 +1,8 @@
-cs1699
-======
+# CS 1699 Class Project
+===
+**[Nicholas Amoscato](http://amoscato.com/)**
+**[Kim Cooperrider](http://kimcoop.com/)**
 
-Kim and Nick's class project
+### Contents
+1. Deliverable 2 - TDD (QUnit, SinonJS)
+2. Deliverable 3 - BDD (CucumberJS)
