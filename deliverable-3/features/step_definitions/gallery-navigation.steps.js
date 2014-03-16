@@ -4,11 +4,14 @@ module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
   
   this.Given(/valid fancyBox gallery/, function(callback) {
-    this.browser.visit('http://localhost', callback);
+    this.browser.visit('http://amoscato.com/public/deliverable-3/', callback);
   });
 
   this.Given(/open fancyBox/, function(callback) {
-    this.browser.clickLink('#gallery .fancy:first-child', callback);
+    this.browser.clickLink('#gallery .fancy:first-child');
+    console.log(this.browser.html());
+    
+    callback.pending();
   });
 
 
@@ -32,12 +35,13 @@ module.exports = function() {
         sel = 'fancybox-prev';
         break;
       case 'next':
-        sel = 'fancybox-prev';
+        sel = 'fancybox-next';
         break;
       default:
         break;
     }
-    this.browser.clickLink('.' + sel, callback);
+    //this.browser.clickLink('.' + sel, callback);
+    callback.pending();
   });
 
 

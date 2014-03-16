@@ -8,15 +8,21 @@
   <body>
     <h1>fancyBox Testing with BDD</h1>
     <div id="gallery">
-      <a rel="gallery" class="fancy" href="img/1_b.jpg"><img src="img/1_s.jpg" /></a>
-      <a rel="gallery" class="fancy" href="img/2_b.jpg"><img src="img/2_s.jpg" /></a>
-      <a rel="gallery" class="fancy" href="img/3_b.jpg"><img src="img/3_s.jpg" /></a>
+      <a rel="gallery" class="fancy" href="#img1"><img src="img/1_s.jpg" /></a>
+      <a rel="gallery" class="fancy" href="#img2"><img src="img/2_s.jpg" /></a>
+      <a rel="gallery" class="fancy" href="#img3"><img src="img/3_s.jpg" /></a>
+    </div>
+
+    <div style="display:none">
+      <img id="img1" src="img/1_b.jpg" />
+      <img id="img2" src="img/2_b.jpg" />
+      <img id="img3" src="img/3_b.jpg" />
     </div>
 
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="lib/jquery.min.js"><\/script>')</script>
-    <script src="src/jquery.fancybox.pack.js"></script>
+    <script src="src/jquery.fancybox.js"></script>
 
     <script>
       $('.fancy').fancybox();
