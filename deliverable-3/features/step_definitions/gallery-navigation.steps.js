@@ -2,66 +2,93 @@
 
 module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
-
-  var Config = {
-    url: 'http://amoscato.com/public/deliverable-3/'
-  }
-
-  var pageLoaded = function() {
-    return this.browser.query('#gallery');
-  }
   
   this.Given(/valid fancyBox gallery/, function(callback) {
-    this.browser.visit(Config.url)
+    var browser = this.browser, 
+      should = this.should, 
+      expect = this.expect;
+    browser.visit(this.config.url)
       .then(function() {
-        console.log('1******************************************');
-        this.browser.wait(pageLoaded, function() {
-          // make sure we have a #gallery
-          console.log('2******************************************');
-          assert.ok(this.browser.query('#gallery'));
-        });
+        console.log('111111111111');
+        browser.success.should.be.ok;
+        if (browser.error) {
+          console.dir('errors:',browser.errors);
+        }
+        browser.query('#gallery').should.exist;
       })
+      .then(function() {
+        console.log('2222222222222');
+        callback();
+      });
   });
 
   this.Given(/open fancyBox/, function(callback) {
-    this.browser.on('error', function(error) {
-      console.log('******************************************');
-      console.log('******************************************');
-      console.error(error);
-      console.log('******************************************');
-      console.log('******************************************');
-    });
-    this.browser.visit(Config.url)
-      .then(function() {
-        console.log('2******************************************');
+      
+    var browser = this.browser,
+      fancyBoxIsLoaded = this.fancyBoxIsLoaded,
+      fancyBoxIsOpen = this.fancyBoxIsOpen;
 
-        // make sure we have a #gallery
-        assert.ok(this.browser.query('#gallery'));
-        // make sure we have 0 open fancyBoxes
-        assert.lengthOf(this.browser.body.queryAll('.fancybox-overlay'), 0);
-        return this.browser.clickLink('#gallery .fancy:first-child');
-      })
-      .then(function() {
-        // now we have 1 open fancyBox
-        assert.lengthOf(this.browser.body.queryAll('.fancybox-overlay'), 1);
-        console.log(this.browser.html());
+    browser.wait( fancyBoxIsLoaded, function() {
+      console.log('fancybox is now loaded');
+      console.log('3333333333333333333333333');
+      browser.clickLink('#gallery .fancy:first-child', function() {
+        console.log('444444444444');
+        browser.wait( fancyBoxIsOpen, function() {
+          console.log('fancybox is now open and should appear in DOM::');
+          console.log(browser.html());
+
+          console.log('****');
+          console.log('wrap needs -opened');
+          // console.log('wait and then see what fills $.fancybox-outer (needs to  be nav)');
+
+          browser.wait( 1200, function() {
+            // console.log( browser.window.$('.fancybox-outer').html() );
+            console.log( browser.window.$('.fancybox-wrap').html() );
+          });
+
+          callback();
+        });
       });
-    
-    callback.pending();
+    });
+
+        // now we have 1 open fancyBox
+        // assert.lengthOf(this.browser.body.queryAll('.fancybox-overlay'), 1);
+        // console.log(this.browser.html());
   });
 
 
   this.When(/^I press the (.*) keyboard key$/, function(key, callback) {
+    console.log('555');
+    console.log('key', key);
     switch(key) {
       case 'left arrow':
         //this.browser.keyPress(37);
+        console.log('@STUB pressed left');
         break;
       case 'right arrow':
+        console.log('@STUB pressed right');
         break;
       default:
         break;
     }
-    callback.pending();
+    var browser = this.browser, 
+      should = this.should, 
+      expect = this.expect,
+      fancyNavIsPresent = this.fancyNavIsPresent;
+
+    console.log(browser.text('title'));
+
+    browser.wait( fancyNavIsPresent, function() {
+      browser.clickLink('.fancybox-next')
+        .then(function() {
+          console.log('---');
+          true.should.be.true;
+        })
+        .then(function() {
+          console.log('6666666');
+          callback();
+        });
+    });
   });
 
   this.When(/^I click the (.*) button$/, function(button, callback) {
