@@ -25,7 +25,20 @@
     <script src="src/jquery.fancybox.js"></script>
 
     <script>
-      $('.fancy').fancybox();
+      $('.fancy').fancybox({
+        openEffect: 'none',
+        closeEffect: 'none',
+        nextEffect: 'none',
+        prevEffect: 'none'
+      });
+
+      var myTest = false;
+ 
+       $('.fancy').click(function() {
+         setTimeout(function() {
+           myTest = true;
+         }, 1500);
+       });
     </script>
   </body>
 </html>

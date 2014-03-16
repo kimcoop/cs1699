@@ -28,26 +28,17 @@ module.exports = function() {
       fancyBoxIsLoaded = this.fancyBoxIsLoaded,
       fancyBoxIsOpen = this.fancyBoxIsOpen;
 
-    browser.wait( fancyBoxIsLoaded, function() {
-      console.log('fancybox is now loaded');
-      console.log('3333333333333333333333333');
-      browser.clickLink('#gallery .fancy:first-child', function() {
-        console.log('444444444444');
-        browser.wait( fancyBoxIsOpen, function() {
-          console.log('fancybox is now open and should appear in DOM::');
-          console.log(browser.html());
+    var myWait = this.myWait;
 
-          console.log('****');
-          console.log('wrap needs -opened');
-          // console.log('wait and then see what fills $.fancybox-outer (needs to  be nav)');
 
-          browser.wait( 1200, function() {
-            // console.log( browser.window.$('.fancybox-outer').html() );
-            console.log( browser.window.$('.fancybox-wrap').html() );
-          });
-
-          callback();
-        });
+    browser.clickLink('#gallery .fancy:first-child', function() {
+      // this stuff happens after the click link, but
+      // ZOMBIE TIMESOUT AFTER THE LINK IS CLICKED
+      browser.wait( browser.window.myTest, function() {
+        console.log('fancybox is now loaded');
+        console.log(browser.window.myTest);
+        console.log(browser.html());
+        callback.pending();
       });
     });
 
@@ -71,6 +62,7 @@ module.exports = function() {
       default:
         break;
     }
+    /*
     var browser = this.browser, 
       should = this.should, 
       expect = this.expect,
@@ -89,6 +81,8 @@ module.exports = function() {
           callback();
         });
     });
+*/
+    callback.pending();
   });
 
   this.When(/^I click the (.*) button$/, function(button, callback) {

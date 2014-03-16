@@ -1,4 +1,5 @@
 var Zombie = require('zombie');
+Zombie.waitFor = 2000;
 
 var World = function World(callback) {
   
@@ -9,6 +10,9 @@ var World = function World(callback) {
   // this.browser will be available in step definitions
   this.browser = new Zombie;
   this.browser.debug = true;
+  this.browser.waitFor = 2000;
+
+  var browser = this.browser;
 
   this.config = {
     url: 'http://amoscato.com/public/deliverable-3/',
@@ -16,15 +20,15 @@ var World = function World(callback) {
   }
 
   this.fancyBoxIsLoaded = function() {
-    return typeof this.browser.window.$.fancybox === this.config.typeofFancyBox;
+    return typeof browser.window.$.fancybox === 'function';
   }
 
   this.fancyBoxIsOpen = function() {
-    return this.browser.window.$('.fancybox-overlay').length != 0;
+    return browser.window.$('.fancybox-next').length !== 0;
   }
 
   this.fancyNavIsPresent = function() {
-    return this.browser.window.$('.fancybox-next').length != 0;
+    return browser.window.$('.fancybox-next').length != 0;
   }
 
   // this.galleryIsPresent = function() {
