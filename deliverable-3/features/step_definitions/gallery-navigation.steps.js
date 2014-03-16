@@ -2,14 +2,32 @@
 
 module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
+
+  var Config = {
+    url: 'http://amoscato.com/public/deliverable-3/'
+  }
   
   this.Given(/valid fancyBox gallery/, function(callback) {
-    this.browser.visit('http://amoscato.com/public/deliverable-3/', callback);
+    this.browser.visit(Config.url)
+      .then(function() {
+        console.log(this.browser.html());
+      })
   });
 
   this.Given(/open fancyBox/, function(callback) {
-    this.browser.clickLink('#gallery .fancy:first-child');
-    console.log(this.browser.html());
+    this.browser.visit(Config.url)
+      .then(function() {
+        // make sure we have a #gallery
+        assert.ok(this.browser.query('#gallery'));
+        // make sure we have 0 open fancyBoxes
+        assert.lengthOf(this.browser.body.queryAll('.fancybox-overlay'), 0);
+        return this.browser.clickLink('#gallery .fancy:first-child');
+      })
+      .then(function() {
+        // now we have 1 open fancyBox
+        assert.lengthOf(this.browser.body.queryAll('.fancybox-overlay'), 1);
+        console.log(this.browser.html());
+      });
     
     callback.pending();
   });
