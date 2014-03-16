@@ -1,4 +1,5 @@
 var zombie = require('zombie');
+var assert = require('assert');
 
 var World = function World(callback) {
   

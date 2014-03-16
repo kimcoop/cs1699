@@ -6,17 +6,35 @@ module.exports = function() {
   var Config = {
     url: 'http://amoscato.com/public/deliverable-3/'
   }
+
+  var pageLoaded = function() {
+    return this.browser.query('#gallery');
+  }
   
   this.Given(/valid fancyBox gallery/, function(callback) {
     this.browser.visit(Config.url)
       .then(function() {
-        console.log(this.browser.html());
+        console.log('1******************************************');
+        this.browser.wait(pageLoaded, function() {
+          // make sure we have a #gallery
+          console.log('2******************************************');
+          assert.ok(this.browser.query('#gallery'));
+        });
       })
   });
 
   this.Given(/open fancyBox/, function(callback) {
+    this.browser.on('error', function(error) {
+      console.log('******************************************');
+      console.log('******************************************');
+      console.error(error);
+      console.log('******************************************');
+      console.log('******************************************');
+    });
     this.browser.visit(Config.url)
       .then(function() {
+        console.log('2******************************************');
+
         // make sure we have a #gallery
         assert.ok(this.browser.query('#gallery'));
         // make sure we have 0 open fancyBoxes
