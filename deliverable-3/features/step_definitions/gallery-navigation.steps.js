@@ -8,10 +8,16 @@ module.exports = function() {
   });
 
   this.Given(/open fancyBox/, function(callback) {
+    var browser = this.browser;
+
     this.browser.clickLink('#gallery .fancy:first-child');
-    console.log(this.browser.html());
+
+    this.browser.wait(this.browser.window.myTest, function() {
+      console.log(browser.window.myTest);
+      console.log(browser.html());
+      callback.pending();
+    });
     
-    callback.pending();
   });
 
 

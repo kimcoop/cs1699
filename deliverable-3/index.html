@@ -26,6 +26,15 @@
 
     <script>
       $('.fancy').fancybox();
+
+      var myTest = false;
+
+      $('.fancy').click(function() {
+        setTimeout(function() {
+          myTest = true;
+        }, 1500);
+      });
+
     </script>
   </body>
 </html>
