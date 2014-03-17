@@ -28,8 +28,14 @@ module.exports = function() {
   this.When(/^I add 24 hours to the date$/, function (callback) {
     var date = this.getOriginalDate(),
       momentDate = this.moment(date);
+
     // do not alter the original, just store anew
     this.setMomentDate(momentDate.add('hours', 24));
+
+    // and update original
+    // use vanilla js to increment js Date object by 1 day
+    this.setOriginalDate( date.setDate(date.getDate() + 1) );
+
     callback();
   });
 
@@ -37,9 +43,6 @@ module.exports = function() {
 
     var should = this.should,
       date = this.getOriginalDate();
-
-    // use vanilla js to increment js Date object by 1 day
-    date.setDate(date.getDate() + 1);
 
     var momentifiedDate = this.moment(date),
       datesAreEqual = momentifiedDate.isSame(this.getMomentDate());
@@ -57,8 +60,10 @@ module.exports = function() {
   this.When(/^I subtract 24 hours from the date$/, function (callback) {
     var date = this.getOriginalDate(),
       momentDate = this.moment(date);
-    // do not alter the original, just store anew
     this.setMomentDate(momentDate.subtract('hours', 24));
+
+    this.setOriginalDate( date.setDate(date.getDate() - 1) );
+
     callback();
   });
 
@@ -66,9 +71,6 @@ module.exports = function() {
     
     var should = this.should,
       date = this.getOriginalDate();
-
-    // use vanilla js to decrement js Date object by 1 day
-    date.setDate(date.getDate() - 1);
 
     var momentifiedDate = this.moment(date),
       datesAreEqual = momentifiedDate.isSame(this.getMomentDate());
@@ -79,16 +81,61 @@ module.exports = function() {
 
   });
 
-  this.When(/^I add (\d+) days to the date$/, function (arg1, callback) {
-    callback.pending();
+
+  /*
+  *= ADD DAYS
+  */
+
+
+  this.When(/^I add (\d+) days to the date$/, function (numDays, callback) {
+    var numDays = Number(numDays),
+      date = this.getOriginalDate(),
+      momentDate = this.moment(date);
+
+    this.setOriginalDate( date.setDate(date.getDate() + numDays) );
+    this.setMomentDate(momentDate.add('days', numDays));
+
+    callback();
   });
 
-  this.Then(/^I should see the date (\d+) week ago$/, function (arg1, callback) {
-    callback.pending();
+  this.Then(/^I should see the date (\d+) days from now$/, function (numDays, callback) {
+    var numDays = Number(numDays),
+      should = this.should,
+      date = this.getOriginalDate();
+
+    var momentifiedDate = this.moment(date),
+      datesAreEqual = momentifiedDate.isSame(this.getMomentDate());
+
+    datesAreEqual.should.be.true;
+
+    callback();
   });
 
-  this.When(/^I subtract (\d+) days from the date$/, function (arg1, callback) {
-    callback.pending();
+  /*
+  *= SUBTRACT DAYS
+  */
+
+  this.When(/^I subtract (\d+) days from the date$/, function (numDays, callback) {
+    var numDays = Number(numDays),
+      date = this.getOriginalDate(),
+      momentDate = this.moment(date);
+    this.setOriginalDate( date.setDate(date.getDate() - numDays) );
+    this.setMomentDate(momentDate.subtract('days', numDays));
+    callback();
   });
+
+  this.Then(/^I should see the date (\d+) days ago$/, function (numDays, callback) {
+    var numDays = Number(numDays),
+      should = this.should,
+      date = this.getOriginalDate();
+
+    var momentifiedDate = this.moment(date),
+      datesAreEqual = momentifiedDate.isSame(this.getMomentDate());
+    
+    datesAreEqual.should.be.true;
+
+    callback();
+  });
+
 
 };
