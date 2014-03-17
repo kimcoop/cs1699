@@ -15,14 +15,21 @@ module.exports = function() {
   });
 
   this.Given(/^today's date$/, function (callback) {
-    callback.pending();
+    var key = 'manipulate';
+    this.setDate(key, new Date());
+    callback();
   });
 
-  this.When(/^I add (\d+) hours to the date$/, function (arg1, callback) {
-    callback.pending();
+  this.When(/^I add 24 hours to the date$/, function (callback) {
+
+    
+    callback();
   });
 
   this.Then(/^I should see tomorrow's date$/, function (callback) {
+
+
+
     callback.pending();
   });
 
