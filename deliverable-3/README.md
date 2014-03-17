@@ -17,7 +17,9 @@ Note: this assumes you have NodeJS and NPM installed. Here's a [guide to install
 
 2. Following the instructions given [here](https://github.com/cucumber/cucumber-js#run-cucumber), you will need to run the following for each feature name from above `features/`
 
-    $ cucumber.js features/my_feature.feature --require features/step_definitions/my_step_definitions.js
+```
+$ cucumber.js features/my_feature.feature --require features/step_definitions/my_step_definitions.js
+```
 
 ## Write a Feature
 
