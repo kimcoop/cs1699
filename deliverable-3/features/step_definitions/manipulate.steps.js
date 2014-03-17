@@ -15,20 +15,21 @@ module.exports = function() {
   });
 
   this.Given(/^today's date$/, function (callback) {
-    var key = 'manipulate';
-    this.setDate(key, new Date());
+    this.setDate(this.moment());
     callback();
   });
 
   this.When(/^I add 24 hours to the date$/, function (callback) {
-
-    
+    var date = this.getDate();
+    this.setDate(date.add('hours', 24));
     callback();
   });
 
-  this.Then(/^I should see tomorrow's date$/, function (callback) {
+  this.Then(/^I should see the original date plus one day$/, function (callback) {
 
-
+    var should = this.should;
+    var date = this.getDate();
+    // date.should
 
     callback.pending();
   });
@@ -37,7 +38,7 @@ module.exports = function() {
     callback.pending();
   });
 
-  this.Then(/^I should see yesterday's date$/, function (callback) {
+  this.Then(/^I should see the original date minus one day$/, function (callback) {
     callback.pending();
   });
 

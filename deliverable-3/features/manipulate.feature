@@ -7,13 +7,13 @@ Feature: Web developer can manipulate a date
     Given a valid reference to Moment.js
     Given today's date
     When I add 24 hours to the date
-    Then I should see tomorrow's date
+    Then I should see the original date plus one day
 
   Scenario: Subtract 24 hours
     Given a valid reference to Moment.js
     Given today's date
     When I subtract 24 hours from the date
-    Then I should see yesterday's date
+    Then I should see the original date minus one day
 
   Scenario: Add 7 days
     Given a valid reference to Moment.js
