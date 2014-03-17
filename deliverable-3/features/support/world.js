@@ -19,6 +19,7 @@ var World = function World(callback) {
   */
 
   my.dates = [];
+  my.compare = {};
 
   my.setDate = function(date) {
     console.log(date.format("YYYY MM DD"));
