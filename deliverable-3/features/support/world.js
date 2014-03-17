@@ -18,6 +18,7 @@ var World = function World(callback) {
   - http://chaijs.com/guide/styles/
   */
 
+
   my.dates = [];
   my.compare = {};
 
@@ -33,6 +34,21 @@ var World = function World(callback) {
     } else {
       return null;
     }
+  }
+  
+  my.originalDate = '';
+  my.momentDate = '';
+  my.setOriginalDate = function(date) {
+    my.originalDate = date;
+  }
+  my.getOriginalDate = function() {
+    return my.originalDate;
+  }
+  my.setMomentDate = function(date) {
+    my.MomentDate = date;
+  }
+  my.getMomentDate = function() {
+    return my.MomentDate;
   }
 
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance

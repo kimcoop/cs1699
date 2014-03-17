@@ -15,23 +15,32 @@ module.exports = function() {
   });
 
   this.Given(/^today's date$/, function (callback) {
-    this.setDate(this.moment());
+    this.setOriginalDate(new Date());
     callback();
   });
 
   this.When(/^I add 24 hours to the date$/, function (callback) {
-    var date = this.getDate();
-    this.setDate(date.add('hours', 24));
+    var date = this.getOriginalDate(),
+      momentDate = this.moment(date);
+    // do not alter the original, just store anew
+    this.setMomentDate(momentDate.add('hours', 24));
     callback();
   });
 
   this.Then(/^I should see the original date plus one day$/, function (callback) {
 
-    var should = this.should;
-    var date = this.getDate();
-    // date.should
+    var should = this.should,
+      date = this.getOriginalDate();
 
-    callback.pending();
+    // use vanilla js to increment js Date object by 1 day
+    date.setDate(date.getDate() + 1);
+
+    var momentifiedDate = this.moment(date),
+      datesAreEqual = momentifiedDate.isSame(this.getMomentDate());
+    
+    datesAreEqual.should.be.true;
+
+    callback();
   });
 
   this.When(/^I subtract (\d+) hours from the date$/, function (arg1, callback) {
