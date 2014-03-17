@@ -20,6 +20,7 @@ var World = function World(callback) {
 
 
   my.dates = [];
+  my.format = "";
   my.compare = {};
 
   my.setDate = function(date) {
@@ -49,6 +50,16 @@ var World = function World(callback) {
   }
   my.getMomentDate = function() {
     return my.MomentDate;
+  }
+
+  my.padDigits = function(str, digits) {
+    str = str + '';
+    if (digits > str.length) {
+      for (var i = str.length; i < digits; i++) {
+        str = '0' + str;
+      }
+    }
+    return str;
   }
 
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance

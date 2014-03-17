@@ -8,6 +8,7 @@ var myHooks = function () {
 
     // clear global variables
     this.dates = [];
+    this.format = "";
     this.compare = {};
     
     callback();

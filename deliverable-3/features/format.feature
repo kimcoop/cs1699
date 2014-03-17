@@ -13,10 +13,10 @@ Feature: Web developer can format a date
     Given a valid reference to Moment.js
     And today's date
     When I pass in the format string "M D"
-    Then I should see a string containing today's month and today's day number
+    Then I should see a string containing today's month and today's day
 
   Scenario:
     Given a valid reference to Moment.js
     And today's date
-    When I pass in the format string "MM DD H:m"
-    Then I should see a string containing today's 2-digit month, today's 2-digit day number, and today's 24-hour time, including hours and minutes only.
+    When I pass in the format string "MM DD H:mm"
+    Then I should see a string containing today's 2-digit month, today's 2-digit day, and today's 24-hour time
