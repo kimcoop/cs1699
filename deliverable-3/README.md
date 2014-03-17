@@ -16,10 +16,10 @@ $ npm install cucumber moment chai
 
 1. Ensure you've followed the Installation steps above
 
-2. Following the instructions given [here](https://github.com/cucumber/cucumber-js#run-cucumber), you will need to run the following for each feature name from above `features/`
+2. Run the cucumber command from above the `features/` directory
 
 ```
-$ cucumber.js features/<feature_name>.feature --require features/step_definitions/<feature_name>.steps.js
+$ cucumber.js
 ```
 
 ## Write a Feature
