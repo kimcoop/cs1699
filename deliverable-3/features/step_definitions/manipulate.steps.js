@@ -4,12 +4,12 @@ module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
 
   this.Given(/^a valid reference to Moment\.js$/, function (callback) {
-    
-    var should = this.should,
-      correctYear = "1992",
-      mFormat = this.moment("Jun 18, 1992").format("YYYY");
 
-    mFormat.should.equal(correctYear);
+    var should = this.should,
+      moment = this.moment;
+
+    // ensure it's present
+    moment.should.be.a('function');
 
     callback();
   });
