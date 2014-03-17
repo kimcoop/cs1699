@@ -2,36 +2,14 @@
 
 Systems Testing with BDD
 
-## Installation
+## Usage
 
-Note: this assumes you have NodeJS and NPM installed. Here's a [guide to installing them](http://www.joyent.com/blog/installing-node-and-npm/).
+1. Install [Node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/). Here is a [guide to installing them](http://www.joyent.com/blog/installing-node-and-npm/).
 
-1. Install [CucumberJS](https://github.com/cucumber/cucumber-js), [Moment.js](https://github.com/moment/moment), and [ChaiJS](http://chaijs.com/) dependencies in this directory.
+2. Install [Cucumber.js](https://github.com/cucumber/cucumber-js), [Chai](http://chaijs.com/) and [Moment.js](https://github.com/moment/moment) dependencies in this directory.
 
-```
-$ npm install cucumber moment chai
-```
+		$ npm install cucumber moment chai
 
-## Running the Tests
+3. Run Cucumber.js in this directory.
 
-1. Ensure you've followed the Installation steps above
-
-2. Run the cucumber command from above the `features/` directory
-
-```
-$ cucumber.js
-```
-
-## Write a Feature
-
-1. Write features into in `features/<feature_name>.feature`
-
-2. From the command line, run `cucumber.js` from above `features/`
-
-3. Copy the code stub into `step_definitions/<feature_name>.steps.js`, following the pattern from `example.steps.js`
-
-
-## Extras (Optional)
-
-- Install Sublime Text 2 [Cucumber Bundle](https://github.com/npverni/cucumber-sublime2-bundle)
-- Watch a [super helpful video](http://blog.codeship.io/2013/04/30/bdd-with-cucumber.html) on BDD with Cucumber/Rails
+		$ cucumber.js
