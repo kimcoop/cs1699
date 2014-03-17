@@ -30,6 +30,8 @@ var myHooks = function () {
 
     console.log('After hook');
 
+    this.dates = [];
+
     // Release control:
     callback();
   });

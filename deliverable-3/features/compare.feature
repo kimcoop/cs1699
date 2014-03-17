@@ -6,14 +6,14 @@ Feature: Web developer can compare two dates
   Scenario: 
     Given a valid reference to Moment.js
     And today's date
-    And a date 1 year ago
+    And yesterday's date
     When I compare the dates
     Then it should indicate that the first date is after the second date
 
   Scenario: 
     Given a valid reference to Moment.js
     And today's date
-    And a tomorrow's date
+    And tomorrow's date
     When I compare the dates
     Then it should indicate that the first date is before the second date
 
