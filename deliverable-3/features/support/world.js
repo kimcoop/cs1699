@@ -1,10 +1,8 @@
-var zombie = require('zombie');
-var World = function World(callback) {
-  this.browser = new zombie // this.browser will be available in step definitions
+var moment = require('moment');
 
-  this.visit = function (url, callback) {
-    this.browser.visit(url, callback);
-  };
+var World = function World(callback) {
+  
+  console.log(moment("Jun 18, 1992").format("YYYY"));
 
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance
 };
