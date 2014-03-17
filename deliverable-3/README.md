@@ -4,15 +4,29 @@ Systems Testing with BDD
 
 ## Installation
 
-1. Install [CucumberJS](https://github.com/cucumber/cucumber-js) and [Moment.js](https://github.com/moment/moment) dependencies in this directory.
+Note: this assumes you have NodeJS and NPM installed. Here's a [guide to installing them](http://www.joyent.com/blog/installing-node-and-npm/).
 
-		$ npm install cucumber moment
+1. Install [CucumberJS](https://github.com/cucumber/cucumber-js), [Moment.js](https://github.com/moment/moment), and [ChaiJS](http://chaijs.com/) dependencies in this directory.
+
+```
+$ npm install cucumber moment chai
+```
+
+## Running the Tests
+
+1. Ensure you've followed the Installation steps above
+
+2. Following the instructions given [here](https://github.com/cucumber/cucumber-js#run-cucumber), you will need to run the following for each feature name from above `features/`
+
+```
+$ cucumber.js features/<feature_name>.feature --require features/step_definitions/<feature_name>.steps.js
+```
 
 ## Write a Feature
 
 1. Write features into in `features/<feature_name>.feature`
 
-2. From the command line, run `cucumber-js` from above `features/`
+2. From the command line, run `cucumber.js` from above `features/`
 
 3. Copy the code stub into `step_definitions/<feature_name>.steps.js`, following the pattern from `example.steps.js`
 
