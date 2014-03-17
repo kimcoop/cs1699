@@ -8,8 +8,9 @@ Note: this assumes you have NodeJS and NPM installed. Here's a [guide to install
 
 1. Install [CucumberJS](https://github.com/cucumber/cucumber-js), [Moment.js](https://github.com/moment/moment), and [ChaiJS](http://chaijs.com/) dependencies in this directory.
 
-		$ npm install cucumber moment chai
-
+```
+$ npm install cucumber moment chai
+```
 
 ## Running the Tests
 
@@ -18,7 +19,7 @@ Note: this assumes you have NodeJS and NPM installed. Here's a [guide to install
 2. Following the instructions given [here](https://github.com/cucumber/cucumber-js#run-cucumber), you will need to run the following for each feature name from above `features/`
 
 ```
-$ cucumber.js features/my_feature.feature --require features/step_definitions/my_step_definitions.js
+$ cucumber.js features/<feature_name>.feature --require features/step_definitions/<feature_name>.steps.js
 ```
 
 ## Write a Feature
