@@ -3,31 +3,6 @@
 module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
   
-  this.Given(/^a valid reference to Moment.js$/, function(callback) {
-    try {
-      require.resolve("moment");
-      callback();
-    } catch(e) {
-      callback.fail(new Error("Moment.js not found"));
-    }
-  });
-
-  this.Given(/^(?:(yesterday|today|tomorrow)'s date)$/, function(date, callback) {
-    switch(date) {
-      case 'yesterday':
-        this.setDate(this.moment().subtract('days', 1));
-        break;
-      case 'today':
-        this.setDate(this.moment());
-        break;
-      case 'tomorrow':
-        this.setDate(this.moment().add('days', 1));
-        break;
-    }
-    callback();
-  });
-
-
   this.When(/^I pass in the format string "(.*)"$/, function(format, callback) {
     this.format = this.getDate().format(format);
     callback();
@@ -36,7 +11,7 @@ module.exports = function() {
 
   this.Then(/^I should see a string containing (.*)$/, function(list, callback) {
     var result = "";
-    var date = new Date();
+    var date = new Date(this.today);
 
     var contents = list.split(', ');
     if (contents.length == 1) {

@@ -23,6 +23,9 @@ var World = function World(callback) {
   my.format = "";
   my.compare = {};
 
+  // note that for simplicity, we assume that today is a static date
+  my.today = "Mar 17, 2014 9:35";
+
   my.setDate = function(date) {
     my.dates.push(date);
   };

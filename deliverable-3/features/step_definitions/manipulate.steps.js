@@ -3,23 +3,6 @@
 module.exports = function() {
   this.World = require("../support/world.js").World; // overwrite default World constructor
 
-  this.Given(/^a valid reference to Moment\.js$/, function (callback) {
-
-    var should = this.should,
-      moment = this.moment;
-
-    // ensure it's present
-    moment.should.be.a('function');
-
-    callback();
-  });
-
-  this.Given(/^today's date$/, function (callback) {
-    this.setOriginalDate(new Date());
-    callback();
-  });
-
-
   /*
   *= ADD
   */
