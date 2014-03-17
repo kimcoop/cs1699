@@ -18,15 +18,21 @@ var World = function World(callback) {
   - http://chaijs.com/guide/styles/
   */
 
+  my.dates = [];
   my.compare = {};
-  my.dates = {};
-  
-  my.setDate = function(key, date) {
-    my.dates[key] = date;
+
+  my.setDate = function(date) {
+    my.dates.push(date);
   };
 
-  my.getDate = function(key) {
-    return my.dates[key];
+  my.getDate = function(index) {
+    if (index && index < my.dates.length) {
+      return my.dates[index];
+    } else if (my.dates.length) {
+      return my.dates[0];
+    } else {
+      return null;
+    }
   }
 
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance

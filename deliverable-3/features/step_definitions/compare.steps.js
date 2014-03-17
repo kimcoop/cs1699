@@ -13,17 +13,15 @@ module.exports = function() {
   });
 
   this.Given(/^(?:(yesterday|today|tomorrow)'s date)$/, function(date, callback) {
-    console.log(date);
-    var key = 'compare';
     switch(date) {
       case 'yesterday':
-        this.setDate(key, this.moment().subtract('days', 1));
+        this.setDate(this.moment().subtract('days', 1));
         break;
       case 'today':
-        this.setDate(key, this.moment());
+        this.setDate(this.moment());
         break;
       case 'tomorrow':
-        this.setDate(key, this.moment().add('days', 1));
+        this.setDate(this.moment().add('days', 1));
         break;
     }
     callback();
