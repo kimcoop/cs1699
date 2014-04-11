@@ -65,6 +65,16 @@ var World = function World(callback) {
     return str;
   }
 
+  my.padDigits = function(str, digits) {
+    str = str + '';
+    if (digits > str.length) {
+      for (var i = str.length; i < digits; i++) {
+        str = '0' + str;
+      }
+    }
+    return str;
+  }
+
   callback(); // tell Cucumber we're finished and to use 'this' as the world instance
 };
 
