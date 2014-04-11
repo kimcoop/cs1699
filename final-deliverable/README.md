@@ -14,7 +14,9 @@ Web Testing with Cucumber.js and Selenium
 		$ npm install --production selenium-standalone@latest
 
 	Note that if you are having difficulty installing these dependencies, [ensure](http://stackoverflow.com/a/10076029) that your version of Node.js is up to date.
+	
+4. Run selenium server at `node_modules/selenium-standalone/bin/start-selenium`.
 
-4. Run Cucumber.js in this directory.
+5. Run Cucumber.js in this directory.
 
 		$ cucumber.js
