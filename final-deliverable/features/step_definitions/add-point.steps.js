@@ -11,8 +11,7 @@ var sharedSteps = module.exports = function() {
     my.client
       .click('#acf-wtm_background_color .color-swatcher a:first-child')
       .click('#acf-wtm_font_color .color-swatcher a:first-child')
-      .setValue('#acf-wtm_coord_percents .coordpicker-container input', "{'x_percent':'0.3','y_percent':'0.3'}", function(err) {
-        // [Error: [setValue("#acf-wtm_coord_percents .coordpicker-container input","{'x_percent':'0.3','y_percent':'0.3'}")] <= [elementIdClear("5")] <= An unknown server-side error occurred while processing the command.]
+      .setValue('#acf-wtm_coord_percents input', '{"x_percent":"0.323","y_percent":"0.102"}', function(err) {
         my.expect(err).to.be.null;
       })
       .call(next);
@@ -21,10 +20,9 @@ var sharedSteps = module.exports = function() {
   this.Then(/"([^"]*)" should contain "([^"]*)"$/, function (selector, value, next) {
     var my = this;
 
-    // contents of selector should equal value
     my.client.getText(selector, function(err, text) {
-        my.expect(err).to.be.null;
-        text.should.equal(value);
+      my.expect(err).to.be.null;
+      text.should.equal(value);
     }).call(next);
   });
 
@@ -33,8 +31,8 @@ var sharedSteps = module.exports = function() {
 
     // contents of selector should equal value
     my.client.getValue(selector, function(err, myValue) {
-        my.expect(err).to.be.null;
-        myValue.should.equal(value);
+      my.expect(err).to.be.null;
+      myValue.should.equal(value);
     }).call(next);
   });
 
