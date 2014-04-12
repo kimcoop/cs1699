@@ -1,6 +1,5 @@
 module.exports = {
   username: 'username',
   password: 'password',
-  baseURL: 'http://labs.amoscato.com/cs1699-wordpress',
-  mapImage: 'http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/world.jpg'
+  baseURL: 'http://labs.amoscato.com/cs1699-wordpress'
 };
