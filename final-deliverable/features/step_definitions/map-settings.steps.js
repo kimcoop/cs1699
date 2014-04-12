@@ -17,30 +17,33 @@ var sharedSteps = module.exports = function(){
             .url(url)
             .getTitle(function(title) {
                 if (title === "CS1699 Software Testing › Log In") {
+                    console.log('need to login');
                     client.setValue("input[name=log]", config.username);
                     client.setValue("input[name=pwd]", config.username);
-                    client.submitForm("form");
+                    client.submitForm("form", function() {
+                        // send back to plugin settings page 
+                        client.url(url);
+                    });
                 }
-            });
-
-        client.setValue("#input-wtm-base-image", config.mapImage);
-        client.submitForm('.form-wtm', function() {
-            console.log( client.getTitle() );
-            assertEquals(config.mapImage, client.getAttribute(".link-wtm-image img", src));
-        });
+            })
 
         client.call(next);
     });
- 
 
 
-this.When(/^I use enter the value "([^"]*)" on the input element "([^"]*)" and save$/, function (arg1, arg2, next) {
-  // express the regexp above with the code you wish you had
-  next.pending();
-});
+    this.When(/^I use enter the value "([^"]*)" on the input element "([^"]*)" and save$/, function (value, selector, next) {
 
-this.Then(/^The source of the element "([^"]*)" should be "([^"]*)"$/, function (arg1, arg2, next) {
-  // express the regexp above with the code you wish you had
-  next.pending();
-});
+        client.setValue(selector, value);
+        client.submitForm('.form-wtm');
+        next();
+
+    });
+
+    this.Then(/^The source of the element "([^"]*)" should be "([^"]*)"$/, function (selector, value, next) {
+        
+        assertEquals(value, client.getAttribute(selector, src));
+        next();
+
+    });
+
 };
