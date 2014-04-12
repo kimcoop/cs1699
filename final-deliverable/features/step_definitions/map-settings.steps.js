@@ -10,15 +10,6 @@ var sharedSteps = module.exports = function() {
         title: 'Map Points Plugin ‹ CS1699 Software Testing — WordPress'
   };
 
-  this.Given(/^I am on the page "([^"]*)"$/, function(url, next) {
-    this.client
-        .url(url)
-        .getTitle(function(err, title) {
-            title.should.equal(settings.title);
-        });
-    next();
-  });
-
   this.When(/^I use enter the value "([^"]*)" on the input element "([^"]*)" and save$/, function (value, selector, next) {
 
     this.client.setValue(selector, value);

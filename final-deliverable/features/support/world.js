@@ -15,14 +15,19 @@ var World = function World(callback) {
   my.expect = chai.expect;
   my.should = chai.should();
 
+  // joins a relative path with a base URL
+  my.joinURL = function(base, relative) {
+    var slash = (relative.substr(0,1) == '/') ? '' : '/';
+    return base + slash + relative;
+  }
+
   // login to wordpress
   my.client
-    .url(my.config.loginPageUrl)
+    .url(my.joinURL(my.config.baseURL, 'wp-login.php'))
     .setValue("#user_login", my.config.username)
     .setValue("#user_pass", my.config.password)
     .submitForm("#loginform", function(err) {
       my.expect(err).to.be.null;
-      console.log("submitted form");
       my.client.call(callback);
     });
 
