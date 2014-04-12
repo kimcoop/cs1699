@@ -1,5 +1,5 @@
 var webdriver = require('webdriverjs'),
-    assert    = require('chai').should(),
+    chai      = require('chai'),
     config    = require('./config');
 
 var World = function World(callback) {
@@ -11,29 +11,19 @@ var World = function World(callback) {
   // initialize webdriverjs
   my.client = my.webdriver.remote({desiredCapabilities: {browserName: 'phantomjs'}, logLevel: 'silent'});
   my.client.init();
+  my.assert = chai.assert;
+  my.expect = chai.expect;
+  my.should = chai.should();
 
   // login to wordpress
   my.client
     .url(my.config.loginPageUrl)
-    .getTitle(function(err, title) {
-      // (err === null).should.be(false);
-
-      if (title === my.config.loginPageTitle) {
-        my.client.setValue("#user_login", my.config.username);
-        my.client.setValue("#user_pass", my.config.password);
-        my.client.submitForm("#loginform", function(err) {
-          // (err === null).should.be(false);
-          console.log("submitted form");
-          
-          my.client.getTitle(function(err, title) {
-            // (err === null).should.be(false);
-            console.log(title);
-            callback();
-          });
-        });
-      } else {
-        callback();
-      }
+    .setValue("#user_login", my.config.username)
+    .setValue("#user_pass", my.config.password)
+    .submitForm("#loginform", function(err) {
+      my.expect(err).to.be.null;
+      console.log("submitted form");
+      my.client.call(callback);
     });
 
 };

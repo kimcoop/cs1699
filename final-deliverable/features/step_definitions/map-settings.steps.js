@@ -1,13 +1,14 @@
 'use strict';
 
-var should = require('chai').should();
+//var should = require('chai').should();
  
 var sharedSteps = module.exports = function() {
   this.World = require('../support/world').World;
+  var should = this.should;
 
   var settings = {
         title: 'Map Points Plugin ‹ CS1699 Software Testing — WordPress'
-    };
+  };
 
   this.Given(/^I am on the page "([^"]*)"$/, function(url, next) {
     this.client
