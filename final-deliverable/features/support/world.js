@@ -1,30 +1,42 @@
-var webdriver = require('webdriverjs'),
-    chai      = require('chai'),
+var webdriverjs = require('webdriverjs'),
     config    = require('./config');
+
+var expect = require('chai').expect;
+var assert = require('chai').assert;
+var should = require('chai').should();
+
+var client = webdriverjs.remote({
+  desiredCapabilities: {
+    browserName: 'phantomjs'
+  }, 
+  logLevel: 'silent'
+});
+
+client.init();
+
+// login to wordpress only once
+
+client.url(config.loginPageUrl)
+  .setValue("#user_login", config.username)
+  .setValue("#user_pass", config.password)
+  .submitForm("#loginform", function(err) {
+    console.log('login error: ' + err);
+    expect(err).to.be.null;
+    console.log("submitted form");
+  });
 
 var World = function World(callback) {
   var my = this;
 
-  my.webdriver = webdriver;
   my.config = config;
 
-  // initialize webdriverjs
-  my.client = my.webdriver.remote({desiredCapabilities: {browserName: 'phantomjs'}, logLevel: 'silent'});
-  my.client.init();
-  my.assert = chai.assert;
-  my.expect = chai.expect;
-  my.should = chai.should();
+  my.assert = assert;
+  my.expect = expect;
+  my.should = should;
 
-  // login to wordpress
-  my.client
-    .url(my.config.loginPageUrl)
-    .setValue("#user_login", my.config.username)
-    .setValue("#user_pass", my.config.password)
-    .submitForm("#loginform", function(err) {
-      my.expect(err).to.be.null;
-      console.log("submitted form");
-      my.client.call(callback);
-    });
+  my.client = client;
+
+  my.client.call(callback);
 
 };
 
