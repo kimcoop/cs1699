@@ -6,15 +6,7 @@ var World = function World(callback) {
   var my = this;
 
   my.webdriver = webdriver;
-
-  // @TODO - this should come from config somehow
-  my.config = {
-    username: 'admin',
-    password: 'ehJdfudFr6Pu7hZ',
-    mapImage: 'http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/world.jpg',
-    loginPageTitle: 'CS1699 Software Testing › Log In',
-    loginPageUrl: 'http://labs.amoscato.com/cs1699-wordpress/wp-login.php'
-  }
+  my.config = config;
 
   // initialize webdriverjs
   my.client = my.webdriver.remote({desiredCapabilities: {browserName: 'phantomjs'}, logLevel: 'silent'});
