@@ -1,9 +1,15 @@
 var webdriverjs = require('webdriverjs'),
-    config    = require('./config');
+    config      = require('./config');
 
 var expect = require('chai').expect;
 var assert = require('chai').assert;
 var should = require('chai').should();
+
+// joins a relative path with a base URL
+var joinURL = function(base, relative) {
+  var slash = (relative.substr(0,1) == '/') ? '' : '/';
+  return base + slash + relative;
+}
 
 var client = webdriverjs.remote({
   desiredCapabilities: {
@@ -16,27 +22,26 @@ client.init();
 
 // login to wordpress only once
 
-client.url(config.loginPageUrl)
+client.url(joinURL(config.baseURL, 'wp-login.php'))
   .setValue("#user_login", config.username)
   .setValue("#user_pass", config.password)
   .submitForm("#loginform", function(err) {
-    console.log('login error: ' + err);
     expect(err).to.be.null;
-    console.log("submitted form");
   });
 
-var World = function World(callback) {
-  var my = this;
+var World = function World(next) {
 
-  my.config = config;
+  this.config = config;
 
-  my.assert = assert;
-  my.expect = expect;
-  my.should = should;
+  this.assert = assert;
+  this.expect = expect;
+  this.should = should;
 
-  my.client = client;
+  this.client = client;
 
-  my.client.call(callback);
+  this.joinURL = joinURL;
+
+  this.client.call(next);
 
 };
 
