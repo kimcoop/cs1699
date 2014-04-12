@@ -1,5 +1,4 @@
 var World = function World(callback) {
-  
   callback();
 };
 

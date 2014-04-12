@@ -4,3 +4,8 @@ npm-debug.log
 .DS_Store
 node_modules
 app
+
+
+# super important this remains ignored
+
+config.js
