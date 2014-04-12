@@ -4,23 +4,23 @@ Feature: Customizing the Map Image
   So that my map is displayed the way I like
  
   Scenario: Set the base image
-    Given I am on the page "http://localhost:8888/wp-admin/admin.php?page=map-points-plugin"
-      And I enter the value "http://localhost:8888/wp-content/uploads/2014/04/map.jpg" on the base image input element "#input-wtm-base-image"
+    Given I am on the page "/wp-admin/admin.php?page=map-points-plugin"
+      And I enter the value "http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/world.jpg" on the input element "#input-wtm-base-image"
       And I clear the value of the input element "#input-wtm-admin-image"
       And I submit the form ".form-wtm"
-    When I visit the page "http://localhost:8888/wp-admin/post-new.php?post_type=map_point"
-    Then I should see "http://localhost:8888/wp-content/uploads/2014/04/map.jpg" as the source of the element ".display-coords"
+    When I visit the page "/wp-admin/post-new.php?post_type=map_point"
+    Then I should see "http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/world.jpg" as the source of the element ".display-coords"
 
   Scenario: Set the admin image
-    Given I am on the page "http://localhost:8888/wp-admin/admin.php?page=map-points-plugin"
-      And I enter the value "http://localhost:8888/wp-content/uploads/2014/04/map-alt.jpg" on the admin image input element "#input-wtm-admin-image"
+    Given I am on the page "/wp-admin/admin.php?page=map-points-plugin"
+      And I enter the value "http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/Blank_map_of_the_United_States.png" on the input element "#input-wtm-admin-image"
       And I submit the form ".form-wtm"
-    When I visit the page "http://localhost:8888/wp-admin/post-new.php?post_type=map_point"
-    Then I should see "http://localhost:8888/wp-content/uploads/2014/04/map-alt.jpg" as the source of the element ".display-coords"
+    When I visit the page "/wp-admin/post-new.php?post_type=map_point"
+    Then I should see "http://labs.amoscato.com/cs1699-wordpress/wp-content/uploads/2014/04/Blank_map_of_the_United_States.png" as the source of the element ".display-coords"
   
   Scenario: Set the color scheme
-    Given I am on the page "http://localhost:8888/wp-admin/admin.php?page=map-points-plugin"
-      And I enter the value "#dd3333" on the primary font input element "#wtm_primary_color"
+    Given I am on the page "/wp-admin/admin.php?page=map-points-plugin"
+      And I enter the value "rgb(221,51,51)" on the input element "#wtm_primary_color"
       And I submit the form ".form-wtm"
-    When I visit the page "http://localhost:8888/wp-admin/post-new.php?post_type=map_point"
-    Then I should see "background: #dd3333" as the inline style of the element "#acf-wtm_font_color .color-swatcher a:first-of-type"
+    When I visit the page "/wp-admin/post-new.php?post_type=map_point"
+    Then the CSS "background" property of the element "#acf-wtm_font_color .color-swatcher a:first-of-type" should be "rgb(221,51,51)"

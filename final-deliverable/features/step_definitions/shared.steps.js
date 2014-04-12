@@ -5,11 +5,12 @@ var sharedSteps = module.exports = function() {
 
   this.Given(/^I am on the page "([^"]*)"$/, function(url, next) {
     this.client
-      .url(this.joinURL(this.config.baseURL, url))
+      .url(this.getAbsoluteURL(url))
       .call(next);
   });
 
-  this.When(/^I enter the value "([^"]*)" in the input element "([^"]*)"$/, function(value, selector, next) {
+  this.When(/^I enter the value "([^"]*)" on the input element "([^"]*)"$/, function(value, selector, next) {
+    //var val = (type == 'value' ? value : getAbsoluteURL(value));
     this.client
       .setValue(selector, value)
       .call(next);

@@ -6,9 +6,9 @@ var assert = require('chai').assert;
 var should = require('chai').should();
 
 // joins a relative path with a base URL
-var joinURL = function(base, relative) {
+var getAbsoluteURL = function(relative) {
   var slash = (relative.substr(0,1) == '/') ? '' : '/';
-  return base + slash + relative;
+  return config.baseURL + slash + relative;
 }
 
 var client = webdriverjs.remote({
@@ -22,7 +22,7 @@ client.init();
 
 // login to wordpress only once
 
-client.url(joinURL(config.baseURL, 'wp-login.php'))
+client.url(getAbsoluteURL('wp-login.php'))
   .setValue("#user_login", config.username)
   .setValue("#user_pass", config.password)
   .submitForm("#loginform", function(err) {
@@ -39,7 +39,7 @@ var World = function World(next) {
 
   this.client = client;
 
-  this.joinURL = joinURL;
+  this.getAbsoluteURL = getAbsoluteURL;
 
   this.client.call(next);
 
