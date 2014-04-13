@@ -10,18 +10,10 @@ var sharedSteps = module.exports = function() {
   });
 
   this.When(/^I enter the value "([^"]*)" on the input element "([^"]*)"$/, function(value, selector, next) {
-    var my = this;
+    var my = this,
+      translatedValue = this.translate(value);
     this.client
-      .setValue(selector, value, function(err) {
-        my.expect(err).to.be.null;
-      })
-      .call(next);
-  });
-
-  this.When(/^I enter the value '([^'']*)' on the input element "([^"]*)"$/, function(value, selector, next) {
-    var my = this;
-    this.client
-      .setValue(selector, value, function(err) {
+      .setValue(selector, translatedValue, function(err) {
         my.expect(err).to.be.null;
       })
       .call(next);

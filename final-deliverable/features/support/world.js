@@ -5,9 +5,25 @@ var expect = require('chai').expect;
 var assert = require('chai').assert;
 var should = require('chai').should();
 
+var translate = function(term) {
+    // we may need to translate the term based on our config (if it's something environment-specific)
+  var flag = config.flag,
+    flagIndex = term.indexOf(flag);
+  if (flagIndex > -1) {
+    console.log('translated: ' + config.translations[ term.slice(flagIndex + flag.length) ]);
+    return config.translations[ term.slice(flagIndex + flag.length) ];
+  }
+  return term;
+  
+}
+
 // joins a relative path with a base URL
 var getAbsoluteURL = function(relative) {
+
+  relative = translate(relative); // may need to translate
+
   var slash = (relative.substr(0,1) == '/') ? '' : '/';
+  console.log('returning ' + config.baseURL + slash + relative);
   return config.baseURL + slash + relative;
 }
 
@@ -40,6 +56,7 @@ var World = function World(next) {
   this.client = client;
 
   this.getAbsoluteURL = getAbsoluteURL;
+  this.translate = translate;
 
   this.client.call(next);
 

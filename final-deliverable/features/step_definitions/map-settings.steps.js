@@ -26,15 +26,17 @@ var sharedSteps = module.exports = function() {
       .call(next);
   });
 
-  this.Then(/^I should see "([^"]*)" as the source of the element "([^"]*)"$/, function (value, selector, next) {
-    var my = this;
-    var should = this.should;
+  this.Then(/^I should see "([^"]*)" as the "([^"]*)" attribute of the element "([^"]*)"$/, function (value, attribute, selector, next) {
+    var my = this,
+      should = this.should,
+      translatedValue = this.translate(value);
+      console.log('translated::: ' +translatedValue);
     this.client
       .waitFor(selector, 500, function(err) {
         my.expect(err).to.be.null;
       })
-      .getAttribute(selector, 'src', function(error, currValue) {
-        currValue.should.equal(value);
+      .getAttribute(selector, attribute, function(error, currValue) {
+        currValue.should.equal(translatedValue);
       })
       .call(next);
   });
