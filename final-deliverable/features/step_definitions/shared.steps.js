@@ -33,4 +33,14 @@ var sharedSteps = module.exports = function() {
       .call(next);
   });
 
+  this.Then(/^"([^"]*)" should exist$/, function(selector, next) {
+    var my = this;
+    this.client
+      .isVisible(selector, function(err, value) {
+        my.expect(err).to.be.null;
+        my.expect(value).to.be.true;
+      })
+      .call(next);
+  });
+
 };
