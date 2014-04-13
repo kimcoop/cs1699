@@ -10,7 +10,6 @@ var translate = function(term) {
   var flag = config.flag,
     flagIndex = term.indexOf(flag);
   if (flagIndex > -1) {
-    console.log('translated: ' + config.translations[ term.slice(flagIndex + flag.length) ]);
     return config.translations[ term.slice(flagIndex + flag.length) ];
   }
   return term;
@@ -23,7 +22,6 @@ var getAbsoluteURL = function(relative) {
   relative = translate(relative); // may need to translate
 
   var slash = (relative.substr(0,1) == '/') ? '' : '/';
-  console.log('returning ' + config.baseURL + slash + relative);
   return config.baseURL + slash + relative;
 }
 

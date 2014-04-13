@@ -30,7 +30,6 @@ var sharedSteps = module.exports = function() {
     var my = this,
       should = this.should,
       translatedValue = this.translate(value);
-      console.log('translated::: ' +translatedValue);
     this.client
       .waitFor(selector, 500, function(err) {
         my.expect(err).to.be.null;

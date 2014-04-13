@@ -19,6 +19,16 @@ var sharedSteps = module.exports = function() {
       .call(next);
   });
 
+  this.When(/^I enter the value '([^"]*)' on the input element "([^"]*)"$/, function(value, selector, next) {
+    var my = this,
+      translatedValue = this.translate(value);
+    this.client
+      .setValue(selector, translatedValue, function(err) {
+        my.expect(err).to.be.null;
+      })
+      .call(next);
+  });
+
   this.When(/^I click "([^"]*)"$/, function(selector, next) {
     this.client
       .click(selector)
