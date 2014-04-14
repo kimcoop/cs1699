@@ -5,7 +5,8 @@ Feature: Viewing Map Points on the Image Map
  
   Scenario: Embed map on page
     Given I am on the page "%%edit_travel_page"
-    When I enter the value "[map_points]" on the input element "#wp-content-editor-container .wp-editor-area"
+    When I click "#content-html"
+      And I enter the value "[map_points]" on the input element "#wp-content-editor-container .wp-editor-area"
       And I click "#publish"
       And I click "#view-post-btn a"
     Then ".entry-content .wtm" should exist

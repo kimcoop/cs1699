@@ -19,7 +19,7 @@ var sharedSteps = module.exports = function() {
       .call(next);
   });
 
-  this.When(/^I enter the value '([^"]*)' on the input element "([^"]*)"$/, function(value, selector, next) {
+  this.When(/^I enter the value '([^']*)' on the input element "([^"]*)"$/, function(value, selector, next) {
     var my = this,
       translatedValue = this.translate(value);
     this.client
