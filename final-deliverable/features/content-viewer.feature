@@ -11,7 +11,9 @@ Feature: Viewing Map Points on the Image Map
       And I click "#view-post-btn a"
     Then ".entry-content .wtm" should exist
 
-  Scenario: Hover over map point
-    Given I am on the page "%%view_travel_page" and at least one travel point exists
-    When I hover over the element "point-dot:first-of-type"
-    Then the CSS "display" property of the element "point-dot:first-of-type +  .point-title" should not be "none"
+  Scenario: Add point to map
+    Given I am on the page "/wp-admin/post-new.php?post_type=map_point"
+      And I have satisfied the required fields
+      And I click "#publish"
+    When I visit the page "%%view_travel_page"
+    Then ".wtm-points li.point-container" should exist

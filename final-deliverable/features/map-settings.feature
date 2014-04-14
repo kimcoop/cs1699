@@ -20,6 +20,7 @@ Feature: Customizing the Map Image
   
   Scenario: Set the color scheme
     Given I am on the page "/wp-admin/admin.php?page=map-points-plugin"
+      And I click ".wp-picker-container:first-child .wp-color-result"
       And I enter the value "rgb(221,51,51)" on the input element "#wtm_primary_color"
       And I submit the form ".form-wtm"
     When I visit the page "/wp-admin/post-new.php?post_type=map_point"
